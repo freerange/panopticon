@@ -13,7 +13,7 @@ class ArtefactsController < ApplicationController
             :include => {
               :audiences      => {},
               :related_items  => { :include => :artefact }, # TODO use :related_artefacts => {}
-              :contact        => {}
+              :contact        => { :except => :contactotron_uri }
             }
           )
       end
