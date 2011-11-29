@@ -1,7 +1,6 @@
 require 'open-uri'
 
 class Contact < ActiveRecord::Base
-  serialize :phone_numbers
   composed_of :contactotron_uri,
     :class_name   => 'URI',
     :mapping      => %w(contactotron_uri to_s),
@@ -13,7 +12,7 @@ class Contact < ActiveRecord::Base
   scope :in_alphabetical_order, order(arel_table[:name].asc)
 
   def update_from_contactotron
-    update_attributes! data_from_contactotron.slice(:name, :postal_address, :phone_numbers, :email_address, :website_url, :opening_hours)
+    update_attributes! data_from_contactotron.slice(:name)
   end
 
   private
