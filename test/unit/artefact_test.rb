@@ -18,4 +18,10 @@ class ArtefactTest < ActiveSupport::TestCase
     assert ! a.valid?
     assert a.errors[:slug].any?
   end
+
+  test '#contact_uri should return the contact\'s URI' do
+    contact = Factory.build :contact, :contactotron_uri => 'http://contactotron.example/contacts/42'
+    artefact = Factory.build :artefact, :contact => contact
+    assert_equal 'http://contactotron.example/contacts/42', artefact.contact_uri
+  end
 end

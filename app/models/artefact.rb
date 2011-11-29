@@ -60,6 +60,10 @@ class Artefact < ActiveRecord::Base
     app += '/admin/publications/' + id.to_s
   end
 
+  def contact_uri
+    contact.contactotron_uri.to_s if contact.present?
+  end
+
   def to_param
     slug
   end
