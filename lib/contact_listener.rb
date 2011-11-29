@@ -4,7 +4,7 @@ class ContactListener
 
     begin
       logger.info "Processing contact #{message['id']}"
-      yield Contact.find_or_initialize_by_contactotron_id(message['id'])
+      yield Contact.find_or_initialize_by_contactotron_uri(message['uri'])
     rescue => e
       logger.error "Unable to process message #{message}"
       logger.error [e.message, e.backtrace].flatten.join("\n")

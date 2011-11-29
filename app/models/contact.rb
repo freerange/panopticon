@@ -2,6 +2,11 @@ require 'open-uri'
 
 class Contact < ActiveRecord::Base
   serialize :phone_numbers
+  composed_of :contactotron_uri,
+    :class_name   => 'URI',
+    :mapping      => %w(contactotron_uri to_s),
+    :constructor  => :parse,
+    :converter    => :parse
 
   validates :name, :presence => true
 
@@ -12,12 +17,6 @@ class Contact < ActiveRecord::Base
   end
 
   private
-    def contactotron_uri
-      URI.parse(Plek.current.find('contactotron')).tap do |uri|
-        uri.path = "/contacts/#{contactotron_id}"
-      end
-    end
-
     def json_from_contactotron
       contactotron_uri.read 'Accept' => Mime::JSON.to_s
     end
